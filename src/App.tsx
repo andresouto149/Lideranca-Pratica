@@ -117,7 +117,7 @@ export default function App() {
               transition={{ duration: 0.6 }}
             >
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 text-indigo-700 text-sm font-bold mb-6 border border-indigo-100 uppercase tracking-wider">
-                <Users size={14} /> Aula aberta gratuita
+                <Users size={14} /> Aula Ao Vivo Gratuita
               </div>
               <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.1] mb-6">
                 Os 3 erros que novos líderes cometem ao assumir uma equipe
@@ -129,7 +129,7 @@ export default function App() {
               <div className="flex flex-col sm:flex-row items-center gap-4 mb-10">
                 <div className="flex items-center gap-3 text-zinc-700 font-medium">
                   <Calendar className="text-indigo-600" size={20} />
-                  <span>15 de Março</span>
+                  <span>26 de Março</span>
                 </div>
                 <div className="hidden sm:block w-1.5 h-1.5 bg-zinc-300 rounded-full" />
                 <div className="flex items-center gap-3 text-zinc-700 font-medium">
@@ -248,7 +248,7 @@ export default function App() {
       <section className="py-24 bg-zinc-50">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-white rounded-[40px] p-8 sm:p-12 shadow-xl border border-zinc-100 flex flex-col md:flex-row items-center gap-10">
-            <div className="w-48 h-48 rounded-3xl overflow-hidden flex-shrink-0 border-4 border-indigo-50 shadow-lg">
+            <div className="w-64 h-64 rounded-3xl overflow-hidden flex-shrink-0 border-4 border-indigo-50 shadow-lg">
               <img 
                 src="/Foto Andre Oficial.jpeg" 
                 alt="André Souto" 
@@ -265,9 +265,7 @@ export default function App() {
                 <p>
                   Mestre em Gestão de Pessoas e especialista em Liderança pela Universidade de Ohio (EUA). Atua há mais de 20 anos na área de gestão e desenvolvimento de líderes, com experiência prática como diretor comercial e gestor em grandes empresas.
                 </p>
-                <p>
-                  Hoje dedica-se à formação de novos líderes, ajudando profissionais que foram promovidos a cargos de liderança a desenvolver autoridade, conduzir equipes e alcançar resultados de forma consistente.
-                </p>
+
               </div>
             </div>
           </div>

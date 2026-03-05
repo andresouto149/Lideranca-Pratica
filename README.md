@@ -1,20 +1,34 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# Landing Page - Liderança Prática
 
-# Run and deploy your AI Studio app
+Este é o repositório da Landing Page para a aula aberta **Liderança Prática**, conduzida por **André Souto**.
 
-This contains everything you need to run your app locally.
+## 🚀 Tecnologias Utilizadas
+- **React 19**
+- **Vite**
+- **Tailwind CSS**
+- **Framer Motion** (para animações)
+- **Lucide React** (ícones)
+- **Google Apps Script** (integração com Google Sheets)
 
-View your app in AI Studio: https://ai.studio/apps/59105746-85e8-4d85-a10b-d30ea41722d5
+## 🛠️ Como rodar o projeto localmente
 
-## Run Locally
+1. Clone o repositório:
+   ```bash
+   git clone https://github.com/seu-usuario/lideranca-pratica.git
+   ```
 
-**Prerequisites:**  Node.js
+2. Instale as dependências:
+   ```bash
+   npm install
+   ```
 
+3. Inicie o servidor de desenvolvimento:
+   ```bash
+   npm run dev
+   ```
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+## 📈 Integração
+Os leads capturados são enviados diretamente para uma planilha do Google via Web App do Google Apps Script.
+
+---
+Desenvolvido com foco em alta conversão e autoridade.
