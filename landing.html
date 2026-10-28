@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Máquina de vendas | Andre Souto</title>
+  <style>
+    :root {
+      --paper: #f3efe7;
+      --paper-2: #faf7f2;
+      --ink: #1c1915;
+      --body: #3f3a33;
+      --muted: #5c564c;
+      --line: #e3dcd0;
+      --green: #143f34;
+      --green-2: #0f3128;
+      --cream: #f3efe7;
+      --sand: #c8bfb2;
+      --night: #1c1915;
+      --night-line: #3a342c;
+      --mist: #e4dcd0;
+      --sea: #b7d0c6;
+      --sea-2: #d5ebe3;
+      --sea-line: #2f6a59;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: "Segoe UI", system-ui, sans-serif;
+      line-height: 1.5;
+    }
+
+    h1, h2, h3, h4, .display {
+      font-family: Georgia, "Iowan Old Style", Palatino, serif;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+    }
+
+    a { color: inherit; }
+
+    .skip {
+      position: absolute;
+      left: 1rem;
+      top: 1rem;
+      transform: translateY(-150%);
+      background: var(--green);
+      color: var(--cream);
+      padding: 0.5rem 0.75rem;
+      z-index: 30;
+    }
+
+    .skip:focus { transform: none; }
+
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      border-bottom: 1px solid var(--line);
+      background: rgba(243, 239, 231, 0.95);
+    }
+
+    .bar, .wrap {
+      width: min(64rem, calc(100% - 2.5rem));
+      margin-inline: auto;
+    }
+
+    .bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1rem 0;
+    }
+
+    .brand {
+      text-decoration: none;
+    }
+
+    .kicker {
+      display: block;
+      margin: 0;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .brand strong {
+      display: block;
+      font-size: 1rem;
+      line-height: 1.2;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      font-size: 0.9rem;
+    }
+
+    nav a:not(.button) {
+      color: var(--muted);
+      text-underline-offset: 0.25rem;
+    }
+
+    nav a:not(.button):hover { text-decoration: underline; }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      background: var(--green);
+      color: var(--cream);
+      text-decoration: none;
+      font-weight: 600;
+      padding: 0.5rem 0.9rem;
+    }
+
+    .button:hover { background: var(--green-2); }
+
+    .button:focus-visible,
+    a:focus-visible {
+      outline: 2px solid var(--green);
+      outline-offset: 2px;
+    }
+
+    .hero { padding: 3.5rem 0 4rem; }
+
+    h1 {
+      max-width: 46rem;
+      margin: 1rem 0 0;
+      font-size: clamp(2.1rem, 5vw, 3.5rem);
+      line-height: 1.05;
+    }
+
+    .lede {
+      max-width: 40rem;
+      margin: 1.5rem 0 0;
+      font-size: 1.2rem;
+      color: var(--body);
+    }
+
+    .note {
+      max-width: 40rem;
+      margin: 1rem 0 0;
+      color: var(--body);
+    }
+
+    .chips, .split, .cards, .moves, .roles {
+      display: grid;
+      gap: 0.75rem;
+    }
+
+    .chips { margin-top: 2.5rem; }
+
+    .chips li, .tags li, .out li, .plain li, .steps li {
+      list-style: none;
+    }
+
+    .chips, .tags, .out, .plain, .steps { margin: 0; padding: 0; }
+
+    .chips li {
+      border: 1px solid var(--line);
+      background: var(--paper-2);
+      padding: 0.75rem 1rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    section.band { border-top: 1px solid var(--line); }
+
+    .section { padding: 4rem 0; }
+
+    h2 {
+      max-width: 40rem;
+      margin: 0.75rem 0 0;
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+    }
+
+    .delivery {
+      display: grid;
+      gap: 1rem;
+      border-top: 1px solid var(--line);
+      padding-top: 2rem;
+      margin-top: 3rem;
+    }
+
+    .num {
+      margin: 0;
+      color: var(--green);
+      font-size: 0.9rem;
+    }
+
+    h3 { margin: 0; font-size: 1.5rem; }
+    h4 { margin: 0; font-size: 1.15rem; }
+
+    section[id] { scroll-margin-top: 5rem; }
+
+    .copy, .small {
+      max-width: 40rem;
+      color: var(--body);
+    }
+
+    .copy { margin: 0.75rem 0 0; }
+    .copy.first { margin-top: 0; }
+
+    .label {
+      margin: 1rem 0 0;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.75rem;
+    }
+
+    .tags li {
+      border: 1px solid var(--line);
+      background: var(--paper-2);
+      padding: 0.35rem 0.75rem;
+      font-size: 0.9rem;
+    }
+
+    .small {
+      margin: 1rem 0 0;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .night {
+      background: var(--night);
+      color: var(--cream);
+      border-top-color: var(--night);
+    }
+
+    .night .kicker { color: var(--sand); }
+
+    .night h2 { max-width: 46rem; font-size: clamp(2rem, 4vw, 3rem); }
+
+    .night .lede { color: var(--mist); }
+
+    .out {
+      display: grid;
+      gap: 0.75rem;
+      margin-top: 2.5rem;
+    }
+
+    .out li {
+      border: 1px solid var(--night-line);
+      padding: 0.75rem 1rem;
+      font-size: 0.9rem;
+    }
+
+    .night .small { color: var(--sand); }
+
+    .intro {
+      max-width: 40rem;
+      margin: 1rem 0 0;
+      color: var(--body);
+    }
+
+    .moves {
+      margin-top: 2.5rem;
+      border: 1px solid var(--line);
+      gap: 1px;
+      background: var(--line);
+    }
+
+    .moves li {
+      background: var(--paper);
+      padding: 1.25rem 1.5rem;
+    }
+
+    .moves h3 { margin-top: 0.75rem; font-size: 1.25rem; }
+
+    .moves p { margin: 0.75rem 0 0; font-size: 0.9rem; color: var(--body); }
+
+    .gears { max-width: 40rem; margin-top: 3rem; }
+
+    .gears h3 { font-size: 1.25rem; }
+
+    .split { margin-top: 0; }
+
+    .panel, .card {
+      background: var(--paper-2);
+      padding: 1.5rem;
+    }
+
+    .cards, .fee-grid {
+      margin-top: 1.5rem;
+      border: 1px solid var(--line);
+      gap: 1px;
+      background: var(--line);
+    }
+
+    .fee-grid { display: grid; margin-top: 2.5rem; }
+
+    .plain { display: grid; gap: 0.5rem; margin-top: 1rem; font-size: 0.9rem; }
+
+    .list-title { margin: 3rem 0 0; font-size: 1.5rem; }
+
+    .roles { margin-top: 2.5rem; }
+
+    .talk {
+      background: var(--green);
+      color: var(--cream);
+      border-top-color: var(--green);
+    }
+
+    .talk .kicker { color: var(--sea); }
+
+    .steps { display: grid; gap: 0.75rem; max-width: 40rem; margin-top: 2rem; }
+
+    .steps li {
+      display: flex;
+      gap: 1rem;
+      border: 1px solid var(--sea-line);
+      padding: 0.75rem 1rem;
+    }
+
+    .steps span { color: var(--sea); font-size: 0.9rem; }
+
+    .talk .copy { color: var(--sea-2); }
+
+    .talk .small { color: var(--sea); }
+
+    .sign { margin: 2.5rem 0 0; font-size: 1.15rem; }
+
+    @media (min-width: 640px) {
+      .chips, .out { grid-template-columns: 1fr 1fr; }
+      .moves { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (min-width: 800px) {
+      .bar, .wrap { width: min(64rem, calc(100% - 4rem)); }
+      .hero { padding: 5rem 0 6rem; }
+      .section { padding: 6rem 0; }
+      .chips { grid-template-columns: 1fr 1fr 1fr; }
+      .delivery { grid-template-columns: 8rem 1fr; }
+      .split, .fee-grid, .cards, .roles { grid-template-columns: 1fr 1fr; }
+      .nav-quiet { display: inline; }
+    }
+
+    @media (max-width: 799px) {
+      .nav-quiet { display: none; }
+    }
+  </style>
+</head>
+<body id="topo">
+  <a class="skip" href="#conteudo">Ir para o conteúdo</a>
+
+  <header class="header">
+    <div class="bar">
+      <a class="brand" href="#topo">
+        <span class="kicker">Andre Souto</span>
+        <strong class="display">Máquina de vendas</strong>
+      </a>
+      <nav aria-label="Nesta página">
+        <a class="nav-quiet" href="#entregas">Entregas</a>
+        <a class="nav-quiet" href="#anda">Como anda</a>
+        <a class="nav-quiet" href="#fee">Fee</a>
+        <a class="button" href="#conversa">Próximo passo</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="conteudo">
+    <section class="wrap hero">
+      <p class="kicker">Para uma empresa que já tem quem fecha</p>
+      <h1>A máquina entrega o lead pronto para comprar e a reunião na agenda do closer.</h1>
+      <p class="lede">Esta conversa é sobre a máquina de vendas. Não é um pacote de disparo, de anúncio nem de hora de SDR.</p>
+      <p class="note">São três entregas, juntas. A máquina para na reunião marcada. Quem conduz a reunião e fecha a venda é o seu closer.</p>
+      <ul class="chips">
+        <li>Lead pronto para comprar</li>
+        <li>Reunião na agenda do closer</li>
+        <li>Vizus Chat, com o seu acesso</li>
+      </ul>
+    </section>
+
+    <section id="entregas" class="band">
+      <div class="wrap section">
+        <p class="kicker">O que você leva</p>
+        <h2>Três entregas, juntas.</h2>
+
+        <article class="delivery">
+          <p class="num display">01</p>
+          <div>
+            <h3>O lead pronto para comprar</h3>
+            <p class="copy">É a pessoa que cabe no perfil, reconhece o problema com as próprias palavras, tem intenção numa janela combinada e participa da decisão, ou aponta quem participa.</p>
+          </div>
+        </article>
+
+        <article class="delivery">
+          <p class="num display">02</p>
+          <div>
+            <h3>A reunião na agenda do closer</h3>
+            <p class="copy">Eu coloco esse lead qualificado na agenda, com horário marcado. Sem horário, essa entrega não aconteceu. A agenda em si não faz parte da oferta: o que se marca é o horário.</p>
+            <p class="label">O handoff leva</p>
+            <ul class="tags">
+              <li>nome</li>
+              <li>empresa</li>
+              <li>papel</li>
+              <li>problema</li>
+              <li>janela</li>
+              <li>horário</li>
+              <li>origem da conversa</li>
+              <li>o trecho que importa</li>
+            </ul>
+            <p class="small">A origem da conversa é a lista disparada no outbound ou a conversa vinda do inbound, incluindo tráfego pago.</p>
+          </div>
+        </article>
+
+        <article class="delivery">
+          <p class="num display">03</p>
+          <div>
+            <h3>O Vizus Chat</h3>
+            <p class="copy">A ferramenta de conversa entra como parte da máquina. Você tem acesso para interagir com o seu lead. Nela acontecem o disparo das listas, a conversa que continua depois da resposta e a pré-qualificação do inbound. Não entra função além disso.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="fora" class="band night">
+      <div class="wrap section">
+        <p class="kicker">O que não entra</p>
+        <h2>A máquina não fecha a venda.</h2>
+        <p class="lede">Quem conduz a reunião e fecha é o seu closer.</p>
+        <ul class="out">
+          <li>Não entra: Lista fria</li>
+          <li>Não entra: Contato que só respondeu</li>
+          <li>Não entra: Clique</li>
+          <li>Não entra: Garantia de receita</li>
+          <li>Não entra: Cota de leads</li>
+          <li>Não entra: Ferramenta de agenda</li>
+        </ul>
+        <p class="small">Quando o lead não está pronto, ele não é entregue e a reunião não é marcada. A fila de conversas em aberto não é lista de leads nem agenda cheia. Você vê a contagem e os motivos de descarte.</p>
+      </div>
+    </section>
+
+    <section id="anda" class="band">
+      <div class="wrap section">
+        <p class="kicker">Como a máquina anda</p>
+        <h2>Demanda, prospecção, qualificação e entrega.</h2>
+        <p class="intro">Os motores são o tráfego pago, o outbound, o inbound e o SDR. Não se contratam separados. Você não contrata um cargo de SDR. Contrata o filtro que decide o que merece ser entregue.</p>
+        <ol class="moves">
+          <li>
+            <p class="num display">01</p>
+            <h3>Gera demanda</h3>
+            <p>O tráfego pago coloca a oferta na frente de gente que ainda não está numa lista. O resultado útil não é o clique. É a pessoa que entra numa conversa e segue para a qualificação.</p>
+          </li>
+          <li>
+            <p class="num display">02</p>
+            <h3>Prospecta</h3>
+            <p>O outbound fala com quem já está numa lista. O disparo feito não é entrega. Quem responde segue para a qualificação.</p>
+          </li>
+          <li>
+            <p class="num display">03</p>
+            <h3>Qualifica</h3>
+            <p>No inbound, o agente de IA confere perfil, problema e prazo. Quem não cabe sai. Quem cabe chega com o histórico. Passar nessa pré-qualificação não é estar pronto para comprar. No outbound, a resposta segue para eu aplicar o critério. A decisão continua comigo.</p>
+          </li>
+          <li>
+            <p class="num display">04</p>
+            <h3>Entrega</h3>
+            <p>Eu coloco o lead qualificado na agenda do closer, com horário marcado. Sem horário, essa entrega não aconteceu. A máquina não fecha a venda.</p>
+          </li>
+        </ol>
+        <div class="gears">
+          <h3>O que faz esses motores girarem</h3>
+          <p class="copy">As engrenagens que já têm nome são a experiência, mais de 20 anos em vendas, e a tecnologia: Vizus Chat, API oficial, agente de IA no inbound e Meta. Há lugar para outras. A lista de engrenagens não está fechada.</p>
+          <p class="copy">A experiência é a estratégia e a qualificação: o critério de pronto para comprar, a mensagem da lista e o que o agente de IA confere no inbound. O tráfego pago não gira nessa engrenagem.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="whatsapp" class="band">
+      <div class="wrap section split">
+        <div>
+          <p class="kicker">WhatsApp</p>
+          <h2>No número que você oferece.</h2>
+        </div>
+        <div>
+          <p class="copy first">O outbound sai no WhatsApp Business, no seu número. O disparo é pela API oficial e só com modelo de mensagem pronto e aprovado pela Meta. Sem esse modelo, o disparo não sai.</p>
+          <p class="copy">A resposta volta e a conversa continua dentro do Vizus Chat. Você tem acesso para interagir com o seu lead.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="fee" class="band">
+      <div class="wrap section">
+        <p class="kicker">Como se paga</p>
+        <h2>Fee mensal e único. Sem número.</h2>
+        <p class="intro">O valor eu defino depois de conversar com o parceiro que opera o tráfego. Até lá, a proposta não leva número. Não há segunda cobrança por lead aceito nem por reunião. O fee não muda com a quantidade de leads, de reuniões nem de contatos da lista. Reunião devolvida não gera desconto nem cobrança extra.</p>
+        <div class="fee-grid">
+          <div class="panel">
+            <h3>Entra no fee</h3>
+            <ul class="plain">
+              <li>O Vizus Chat</li>
+              <li>O serviço de tráfego pago</li>
+              <li>O meu trabalho</li>
+            </ul>
+            <p class="small">Isso mantém a máquina acesa o mês inteiro: o disparo no WhatsApp Business, a pré-qualificação do agente no inbound, a revisão em que eu decido quem está pronto para comprar e o ato de colocar esse lead na agenda do closer. A reunião não tem preço à parte.</p>
+          </div>
+          <div class="panel">
+            <h3>Fica fora, no seu cartão</h3>
+            <ul class="plain">
+              <li>A verba de anúncio, dentro da Meta</li>
+              <li>O valor da API e das mensagerias</li>
+            </ul>
+            <p class="small">Não há valor fechado para a verba, para a API nem para as mensagerias. Nada disso entra no fee.</p>
+          </div>
+        </div>
+        <h3 class="list-title">A lista também fica fora do fee</h3>
+        <div class="cards">
+          <article class="card">
+            <h4>Se a lista for sua</h4>
+            <p class="copy">É um custo à parte, sem cobrança por contato.</p>
+          </article>
+          <article class="card">
+            <h4>Se eu gerar a lista</h4>
+            <p class="copy">O adicional é por contato conseguido para essa lista. Contato da lista não é lead pronto nem reunião. O valor desse contato não está fixado.</p>
+          </article>
+        </div>
+        <p class="small">Lista sem origem clara não entra no disparo.</p>
+      </div>
+    </section>
+
+    <section id="papeis" class="band">
+      <div class="wrap section">
+        <p class="kicker">Quem faz o quê</p>
+        <h2>Estratégia comigo. Tráfego com o parceiro.</h2>
+        <div class="roles">
+          <article>
+            <h3>Andre Souto</h3>
+            <p class="copy">Eu cuido da estratégia e da qualificação dos leads. Também marco a reunião na agenda do closer.</p>
+          </article>
+          <article>
+            <h3>Parceiro de tráfego</h3>
+            <p class="copy">O parceiro opera o tráfego pago. Não há nome, divisão de receita nem outro escopo nesta conversa.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="conversa" class="band talk">
+      <div class="wrap section">
+        <p class="kicker">Próximo passo</p>
+        <h2>Se fizer sentido, a conversa seguinte fecha quatro pontos.</h2>
+        <ol class="steps">
+          <li><span class="display">01</span><span>O perfil de quem está pronto para comprar.</span></li>
+          <li><span class="display">02</span><span>A agenda do closer em que a reunião entra.</span></li>
+          <li><span class="display">03</span><span>O número de WhatsApp Business.</span></li>
+          <li><span class="display">04</span><span>O caminho da lista: a sua ou a que eu gero.</span></li>
+        </ol>
+        <p class="copy">O valor do fee mensal vem depois da conversa com o parceiro do tráfego. Até lá, a proposta não leva número.</p>
+        <p class="small">Esta página não envia mensagem. Não há formulário.</p>
+        <p class="sign display">Andre Souto</p>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

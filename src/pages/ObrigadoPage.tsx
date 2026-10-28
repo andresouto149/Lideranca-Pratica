@@ -75,7 +75,7 @@ export default function ObrigadoPage() {
       </motion.div>
 
       <div className="mt-12 text-zinc-400 text-sm flex items-center gap-6">
-        <a href="/" className="hover:text-indigo-600 transition-colors">Voltar para o início</a>
+        <a href="/aula" className="hover:text-indigo-600 transition-colors">Voltar para o início</a>
         <span>•</span>
         <p>© 2024 André Souto</p>
       </div>
