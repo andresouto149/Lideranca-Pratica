@@ -237,8 +237,9 @@ export default function LandingPage() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-bold text-zinc-700 mb-2">E-mail (opcional)</label>
+                  <label className="block text-sm font-bold text-zinc-700 mb-2">E-mail *</label>
                   <input
+                    required
                     name="email"
                     type="email"
                     placeholder="seu@email.com"
