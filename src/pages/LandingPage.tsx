@@ -3,16 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
   CheckCircle2, 
-  Calendar, 
-  Clock, 
   Users, 
   ArrowRight, 
   Target, 
   BookOpen, 
   ShieldCheck,
   AlertCircle,
-  MessageCircle,
-  Video
+  MessageCircle
 } from 'lucide-react';
 
 export default function LandingPage() {
@@ -116,23 +113,6 @@ export default function LandingPage() {
                 Se você sente que sua equipe não tem compromisso ou parece desinteressada, talvez a resposta não esteja neles — mas em pontos cegos da sua própria condução.
               </p>
               
-              <div className="flex flex-col sm:flex-row items-center gap-4 mb-10">
-                <div className="flex items-center gap-3 text-zinc-700 font-medium">
-                  <Calendar className="text-indigo-600" size={20} />
-                  <span>16 de Abril</span>
-                </div>
-                <div className="hidden sm:block w-1.5 h-1.5 bg-zinc-300 rounded-full" />
-                <div className="flex items-center gap-3 text-zinc-700 font-medium">
-                  <Clock className="text-indigo-600" size={20} />
-                  <span>20:00 (Horário de Brasília)</span>
-                </div>
-                <div className="hidden sm:block w-1.5 h-1.5 bg-zinc-300 rounded-full" />
-                <div className="flex items-center gap-3 text-zinc-700 font-medium">
-                  <Video className="text-indigo-600" size={20} />
-                  <span>Google Meet</span>
-                </div>
-              </div>
-
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
