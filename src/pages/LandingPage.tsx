@@ -1,21 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect, type FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { motion, AnimatePresence } from 'motion/react';
-import { 
-  CheckCircle2, 
-  Users, 
-  ArrowRight, 
-  Target, 
-  BookOpen, 
-  ShieldCheck,
-  AlertCircle,
-  MessageCircle
-} from 'lucide-react';
+import { motion } from 'motion/react';
+import { ArrowRight, AlertCircle } from 'lucide-react';
 
 export default function LandingPage() {
   const navigate = useNavigate();
   const [isScrolled, setIsScrolled] = useState(false);
-  const [formSubmitted, setFormSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
 
@@ -27,11 +17,11 @@ export default function LandingPage() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const scrollToForm = () => {
-    document.getElementById('inscricao')?.scrollIntoView({ behavior: 'smooth' });
+  const scrollTo = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
     setErrorMsg("");
@@ -73,165 +63,131 @@ export default function LandingPage() {
 
   return (
     <div className="min-h-screen font-sans bg-white">
-      {/* Header / Nav */}
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-white/90 backdrop-blur-md shadow-sm py-3' : 'bg-transparent py-6'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold">L</div>
             <span className="font-display font-bold text-xl tracking-tight">Liderança <span className="text-indigo-600">Prática</span></span>
           </div>
-          <button 
-            onClick={scrollToForm}
+          <button
+            onClick={() => scrollTo('inscricao')}
             className="hidden sm:block bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2 rounded-full font-semibold transition-all hover:shadow-lg active:scale-95"
           >
-            Garantir minha vaga
+            Quero me inscrever
           </button>
         </div>
       </nav>
 
-      {/* SEÇÃO 1 — HERO */}
-      <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
+      <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-28 overflow-hidden">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full -z-10 opacity-30">
           <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-indigo-200 rounded-full blur-[120px]" />
           <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-violet-200 rounded-full blur-[120px]" />
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center lg:text-left grid lg:grid-cols-2 gap-12 items-center">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-            >
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 text-indigo-700 text-sm font-bold mb-6 border border-indigo-100 uppercase tracking-wider">
-                <Users size={14} /> Aula Ao Vivo Gratuita
-              </div>
-              <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.1] mb-6">
-                O desafio é a nova geração ou a forma como estamos liderando?
-              </h1>
-              <p className="text-lg sm:text-xl text-zinc-600 mb-8 max-w-xl mx-auto lg:mx-0 leading-relaxed">
-                Se você sente que sua equipe não tem compromisso ou parece desinteressada, talvez a resposta não esteja neles — mas em pontos cegos da sua própria condução.
-              </p>
-              
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="max-w-4xl mx-auto"
+          >
+            {/* Troque este bloco pelo vídeo do André. */}
+            <div className="aspect-video rounded-3xl bg-zinc-900 border-8 border-white shadow-2xl flex items-center justify-center px-6 text-center">
+              <p className="text-white text-lg sm:text-xl font-medium">[Vídeo do André]</p>
+            </div>
+
+            <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.1] mt-12 mb-6 max-w-3xl">
+              Aulas ao vivo de gestão de pessoas e vendas, com André Souto.
+            </h1>
+            <p className="text-lg sm:text-xl text-zinc-600 mb-8 max-w-2xl leading-relaxed">
+              O mercado de trabalho cobra cada vez mais de quem lidera e de quem vende. Saber conduzir uma equipe, conversar com um cliente, resolver um conflito e fechar um negócio faz diferença no dia a dia e na carreira. Esse conhecimento costuma ser caro e distante. Aqui, não.
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-4">
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                onClick={scrollToForm}
+                onClick={() => scrollTo('inscricao')}
                 className="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white px-10 py-5 rounded-2xl font-bold text-lg shadow-xl shadow-indigo-200 transition-all flex items-center justify-center gap-3 group"
               >
-                Quero participar da aula
+                Quero me inscrever
                 <ArrowRight className="group-hover:translate-x-1 transition-transform" />
               </motion.button>
-              
-              <p className="mt-6 text-sm text-zinc-500 leading-relaxed max-w-md mx-auto lg:mx-0">
-                Uma aula prática para ajudar você a entender e ajustar sua forma de liderar para gerar engajamento real e resultados consistentes.
-              </p>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="relative"
-            >
-              <div className="relative z-10 rounded-3xl overflow-hidden shadow-2xl border-8 border-white">
-                <img 
-                  src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=800" 
-                  alt="Liderando a nova geração" 
-                  className="w-full h-auto"
-                  referrerPolicy="no-referrer"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-8">
-                  <div className="text-white">
-                    <p className="font-bold text-xl mb-1">Aula Exclusiva</p>
-                    <p className="text-sm opacity-90">Vagas limitadas para interação ao vivo</p>
-                  </div>
-                </div>
-              </div>
-              <div className="absolute -top-6 -right-6 w-24 h-24 bg-indigo-600 rounded-full -z-10 blur-2xl opacity-40" />
-              <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-violet-600 rounded-full -z-10 blur-3xl opacity-20" />
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* SEÇÃO 2 — PARA QUEM É ESSA AULA */}
-      <section className="py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="font-display text-3xl sm:text-4xl font-bold mb-4">Para quem é essa aula?</h2>
-            <div className="w-20 h-1.5 bg-indigo-600 mx-auto rounded-full" />
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {[
-              { icon: <Users />, text: "Sente que a equipe não tem o compromisso esperado" },
-              { icon: <Target />, text: "Tem dificuldade em cobrar resultados sem gerar desgaste" },
-              { icon: <BookOpen />, text: "Percebe os jovens desinteressados ou sem foco" },
-              { icon: <ShieldCheck />, text: "Sente-se sobrecarregado e sem o apoio do time" }
-            ].map((item, idx) => (
-              <motion.div
-                key={idx}
-                whileHover={{ y: -5 }}
-                className="p-8 rounded-3xl bg-zinc-50 border border-zinc-100 flex flex-col items-center text-center transition-all hover:shadow-lg"
+              <button
+                onClick={() => scrollTo('como-funciona')}
+                className="w-full sm:w-auto bg-white hover:bg-zinc-50 text-zinc-900 px-10 py-5 rounded-2xl font-bold text-lg border border-zinc-200 transition-all"
               >
-                <div className="w-14 h-14 bg-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center mb-6">
-                  {React.cloneElement(item.icon as React.ReactElement, { size: 28 })}
-                </div>
-                <p className="font-semibold text-zinc-800 leading-snug">{item.text}</p>
-              </motion.div>
-            ))}
-          </div>
+                Como funciona
+              </button>
+            </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* SEÇÃO 3 — O QUE VOCÊ VAI APRENDER */}
-      <section className="py-24 bg-zinc-900 text-white overflow-hidden relative">
-        <div className="absolute top-0 right-0 w-[50%] h-full bg-indigo-600/10 skew-x-12 translate-x-1/2" />
-        
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center">
-            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mb-12">
-              O que você vai <span className="text-indigo-400">aprender</span> nessa aula:
-            </h2>
-            <div className="grid sm:grid-cols-3 gap-8 text-left">
-              {[
-                "Como a falta de clareza nas expectativas sabota o engajamento",
-                "O papel do acompanhamento constante na consistência das entregas",
-                "Caminhos práticos para uma comunicação que gera responsabilidade"
-              ].map((item, idx) => (
-                <div key={idx} className="bg-white/5 backdrop-blur-sm p-8 rounded-3xl border border-white/10 group hover:bg-white/10 transition-all">
-                  <div className="w-10 h-10 rounded-full bg-indigo-500 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                    <CheckCircle2 size={20} className="text-white" />
-                  </div>
-                  <p className="text-lg text-zinc-200 leading-snug">{item}</p>
-                </div>
-              ))}
+      <section id="como-funciona" className="py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="mb-12">
+            <h2 className="font-display text-3xl sm:text-4xl font-bold mb-4">Como funciona</h2>
+            <div className="w-20 h-1.5 bg-indigo-600 rounded-full mb-6" />
+            <p className="text-lg text-zinc-600 leading-relaxed max-w-2xl">
+              As aulas são ao vivo, pelo Google Meet, uma vez por semana, com duas horas cada. Cada assunto é uma trilha de oito encontros. Os encontros são às segundas, [horário].
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            <div className="p-8 rounded-3xl bg-zinc-50 border border-zinc-100">
+              <p className="text-sm font-bold text-indigo-600 uppercase tracking-wider mb-3">Trilha 1</p>
+              <h3 className="font-display text-2xl font-bold mb-3">Gestão de Pessoas</h3>
+              <p className="text-lg text-zinc-600 leading-relaxed">Começa em 15 de fevereiro de 2027. Oito encontros de duas horas.</p>
+            </div>
+            <div className="p-8 rounded-3xl bg-zinc-50 border border-zinc-100">
+              <p className="text-sm font-bold text-indigo-600 uppercase tracking-wider mb-3">Trilha 2</p>
+              <h3 className="font-display text-2xl font-bold mb-3">Vendas</h3>
+              <p className="text-lg text-zinc-600 leading-relaxed">Começa em 3 de maio de 2027. Oito encontros de duas horas.</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* SEÇÃO 4 — QUEM CONDUZ */}
       <section className="py-24 bg-zinc-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid md:grid-cols-2 gap-8">
+            <div className="bg-white rounded-[32px] p-8 sm:p-12 border border-zinc-100 shadow-sm">
+              <h2 className="font-display text-3xl font-bold mb-4">Quanto custa</h2>
+              <p className="font-display text-5xl sm:text-6xl font-extrabold text-indigo-600 mb-2">R$ 49,90</p>
+              <p className="text-lg font-medium text-zinc-700 mb-6">por mês, pago por Pix</p>
+              <p className="text-lg text-zinc-600 leading-relaxed">
+                Não tem contrato nem fidelidade. Você paga o mês e assiste às aulas daquele mês. Se quiser parar, é só não pagar o mês seguinte.
+              </p>
+            </div>
+            <div className="bg-white rounded-[32px] p-8 sm:p-12 border border-zinc-100 shadow-sm">
+              <h2 className="font-display text-3xl font-bold mb-4">Para quem é</h2>
+              <p className="text-lg text-zinc-600 leading-relaxed">
+                Para quem lidera ou quer liderar, para quem vende ou quer vender melhor, e para quem quer se destacar no mercado de trabalho.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-24 bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-white rounded-[40px] p-8 sm:p-12 shadow-xl border border-zinc-100 flex flex-col md:flex-row items-center gap-10">
-            <div className="w-64 h-64 rounded-3xl overflow-hidden flex-shrink-0 border-4 border-indigo-50 shadow-lg">
-              <img 
-                src="/Foto Andre Oficial.jpeg" 
-                alt="André Souto" 
+          <div className="bg-zinc-50 rounded-[40px] p-8 sm:p-12 border border-zinc-100 flex flex-col md:flex-row items-center gap-10">
+            <div className="w-64 h-64 rounded-3xl overflow-hidden flex-shrink-0 border-4 border-white shadow-lg">
+              <img
+                src="/escola-de-gente/andre-souto.jpg"
+                alt="André Souto"
                 className="w-full h-full object-cover"
-                referrerPolicy="no-referrer"
               />
             </div>
             <div>
-              <div className="inline-block px-3 py-1 rounded-full bg-indigo-50 text-indigo-700 text-xs font-bold mb-4 uppercase tracking-widest">
-                Seu Mentor
-              </div>
-              <h2 className="font-display text-3xl font-bold mb-4">André Souto</h2>
+              <h2 className="font-display text-3xl font-bold mb-4">Quem ensina</h2>
               <div className="space-y-4 text-lg text-zinc-600 leading-relaxed">
                 <p>
-                  Mestre em Gestão de Pessoas e especialista em Liderança pela Universidade de Ohio (EUA). Atua há mais de 20 anos na área de gestão e desenvolvimento de líderes, com experiência prática como diretor comercial e gestor em grandes empresas.
+                  André Souto foi professor universitário no curso de Administração. É mestre em Administração, na área de Gestão de Pessoas, e especialista em Liderança pelos Estados Unidos. Tem mais de 20 anos na área comercial, como diretor comercial e consultor.
+                </p>
+                <p>
+                  Nas aulas, ele leva o que viveu: as equipes que liderou, as vendas que fez e perdeu, os erros e o que aprendeu com eles.
                 </p>
               </div>
             </div>
@@ -239,7 +195,6 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* SEÇÃO 5 — FORMULÁRIO DE INSCRIÇÃO */}
       <section id="inscricao" className="py-24 bg-indigo-600 relative overflow-hidden">
         <div className="absolute top-0 left-0 w-64 h-64 bg-white/10 rounded-full -translate-x-1/2 -translate-y-1/2 blur-3xl" />
         <div className="absolute bottom-0 right-0 w-96 h-96 bg-indigo-400/20 rounded-full translate-x-1/3 translate-y-1/3 blur-3xl" />
@@ -248,131 +203,77 @@ export default function LandingPage() {
           <div className="max-w-2xl mx-auto">
             <div className="bg-white rounded-[32px] p-8 sm:p-12 shadow-2xl">
               <div className="text-center mb-10">
-                <h2 className="font-display text-3xl font-bold mb-3 text-zinc-900">Participe desta conversa</h2>
-                <p className="text-zinc-500">Preencha os dados abaixo para receber o link de acesso ao Google Meet.</p>
+                <h2 className="font-display text-3xl font-bold mb-3 text-zinc-900">Inscrição</h2>
+                <p className="text-zinc-500">
+                  Preencha seu nome, e-mail e WhatsApp. Antes da primeira aula do mês, você recebe o Pix. Depois do pagamento, chega por e-mail o link da sala com as datas das aulas daquele mês.
+                </p>
               </div>
 
-              <AnimatePresence mode="wait">
-                {!formSubmitted ? (
-                  <motion.form 
-                    key="form"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    onSubmit={handleSubmit} 
-                    className="space-y-5"
-                  >
-                    <input type="text" name="company" style={{ display: 'none' }} tabIndex={-1} autoComplete="off" />
-                    <div>
-                      <label className="block text-sm font-bold text-zinc-700 mb-2">Nome completo *</label>
-                      <input 
-                        required
-                        name="name"
-                        type="text" 
-                        placeholder="Como quer ser chamado?"
-                        className="w-full px-5 py-4 rounded-xl bg-zinc-50 border border-zinc-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 outline-none transition-all"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-bold text-zinc-700 mb-2">WhatsApp (com DDD) *</label>
-                      <input 
-                        required
-                        name="whatsapp"
-                        type="tel" 
-                        placeholder="(00) 00000-0000"
-                        className="w-full px-5 py-4 rounded-xl bg-zinc-50 border border-zinc-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 outline-none transition-all"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-bold text-zinc-700 mb-2">E-mail (opcional)</label>
-                      <input 
-                        name="email"
-                        type="email" 
-                        placeholder="seu@email.com"
-                        className="w-full px-5 py-4 rounded-xl bg-zinc-50 border border-zinc-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 outline-none transition-all"
-                      />
-                    </div>
+              <motion.form
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                onSubmit={handleSubmit}
+                className="space-y-5"
+              >
+                <input type="text" name="company" style={{ display: 'none' }} tabIndex={-1} autoComplete="off" />
+                <div>
+                  <label className="block text-sm font-bold text-zinc-700 mb-2">Nome completo *</label>
+                  <input
+                    required
+                    name="name"
+                    type="text"
+                    placeholder="Como quer ser chamado?"
+                    className="w-full px-5 py-4 rounded-xl bg-zinc-50 border border-zinc-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 outline-none transition-all"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-bold text-zinc-700 mb-2">WhatsApp (com DDD) *</label>
+                  <input
+                    required
+                    name="whatsapp"
+                    type="tel"
+                    placeholder="(00) 00000-0000"
+                    className="w-full px-5 py-4 rounded-xl bg-zinc-50 border border-zinc-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 outline-none transition-all"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-bold text-zinc-700 mb-2">E-mail (opcional)</label>
+                  <input
+                    name="email"
+                    type="email"
+                    placeholder="seu@email.com"
+                    className="w-full px-5 py-4 rounded-xl bg-zinc-50 border border-zinc-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 outline-none transition-all"
+                  />
+                </div>
 
-                    {errorMsg && (
-                      <div className="p-4 bg-red-50 text-red-600 rounded-xl text-sm font-medium flex items-center gap-2">
-                        <AlertCircle size={16} />
-                        {errorMsg}
-                      </div>
-                    )}
-
-                    <button 
-                      type="submit"
-                      disabled={loading}
-                      className={`w-full bg-indigo-600 hover:bg-indigo-700 text-white py-5 rounded-xl font-bold text-lg shadow-lg shadow-indigo-100 transition-all active:scale-[0.98] mt-4 flex items-center justify-center gap-2 ${loading ? 'opacity-70 cursor-not-allowed' : ''}`}
-                    >
-                      {loading ? (
-                        <>
-                          <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                          Processando...
-                        </>
-                      ) : "Quero participar da aula"}
-                    </button>
-                    <p className="text-center text-xs text-zinc-400 mt-4">
-                      Ao se inscrever, você concorda com nossa Política de Privacidade.
-                    </p>
-                  </motion.form>
-                ) : (
-                  <motion.div 
-                    key="success"
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    className="text-center py-6"
-                  >
-                    <div className="w-20 h-20 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                      <CheckCircle2 size={40} />
-                    </div>
-                    <h3 className="text-2xl font-bold text-zinc-900 mb-2">Inscrição Confirmada!</h3>
-                    <p className="text-zinc-600 mb-8">Agora, o passo mais importante para não perder o link da aula:</p>
-                    
-                    <a 
-                      href="https://chat.whatsapp.com/GxhMS1lyHUU45n0iRqwi3l?mode=hqctcla"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center gap-3 w-full bg-[#25D366] hover:bg-[#128C7E] text-white py-5 rounded-2xl font-bold text-lg shadow-xl shadow-emerald-100 transition-all active:scale-[0.98] mb-6"
-                    >
-                      <MessageCircle size={24} />
-                      Entrar no Grupo VIP (WhatsApp)
-                    </a>
-                    
-                    <p className="text-sm text-zinc-500 mb-8">
-                      É por lá que enviaremos o material de apoio e o link de acesso no dia 26.
-                    </p>
-
-                    <button 
-                      onClick={() => setFormSubmitted(false)}
-                      className="text-zinc-400 text-sm hover:text-indigo-600 transition-colors"
-                    >
-                      Fazer outra inscrição
-                    </button>
-                  </motion.div>
+                {errorMsg && (
+                  <div className="p-4 bg-red-50 text-red-600 rounded-xl text-sm font-medium flex items-center gap-2">
+                    <AlertCircle size={16} />
+                    {errorMsg}
+                  </div>
                 )}
-              </AnimatePresence>
+
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className={`w-full bg-indigo-600 hover:bg-indigo-700 text-white py-5 rounded-xl font-bold text-lg shadow-lg shadow-indigo-100 transition-all active:scale-[0.98] mt-4 flex items-center justify-center gap-2 ${loading ? 'opacity-70 cursor-not-allowed' : ''}`}
+                >
+                  {loading ? (
+                    <>
+                      <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                      Processando...
+                    </>
+                  ) : "Quero me inscrever"}
+                </button>
+                <p className="text-center text-xs text-zinc-400 mt-4">
+                  Ao se inscrever, você concorda com nossa Política de Privacidade.
+                </p>
+              </motion.form>
             </div>
           </div>
         </div>
       </section>
 
-      {/* SEÇÃO 6 — AVISO DE ESCASSEZ */}
-      <section className="py-12 bg-zinc-50 border-t border-zinc-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-center">
-            <div className="flex items-center gap-2 text-amber-600 font-bold">
-              <AlertCircle size={20} />
-              <span>Aviso Importante:</span>
-            </div>
-            <p className="text-zinc-600 font-medium">
-              A aula será ao vivo via Google Meet e as vagas são limitadas para garantir interação. Não haverá reprise pública.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer */}
       <footer className="py-12 bg-white border-t border-zinc-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-8">
